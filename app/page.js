@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Button } from "@/components/ui/button";
 import { 
   ChevronRight, Mic, ShieldCheck, 
-  BarChart3, Target, Sparkles, Gift, Zap, TrendingUp, Lock, CreditCard, User
+  BarChart3, Target, Sparkles, Gift, Zap, TrendingUp, Lock, CreditCard, User, Mail, Phone, MapPin, Send
 } from "lucide-react"; 
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import Image from "next/image";
@@ -113,13 +113,14 @@ export default function CareerMockLanding() {
         <div className="max-w-[1100px] mx-auto h-16 flex items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3 group">
             <Image src="/logo.png" alt="Logo" width={32} height={32} className="group-hover:scale-105 transition-transform" />
-            <span className="text-xl font-bold tracking-tight text-[#1D1D1F]">Career Mock <span className="text-yellow-600 font-extrabold text-xs ml-1 px-2 py-0.5 bg-yellow-50 border border-yellow-200 rounded-full uppercase">AI</span></span>
+            <span className="text-xl font-bold tracking-tight text-[#1D1D1F]">Career Talk <span className="text-yellow-600 font-extrabold text-xs ml-1 px-2 py-0.5 bg-yellow-50 border border-yellow-200 rounded-full uppercase">AI</span></span>
           </Link>
 
           <div className="hidden md:flex items-center gap-8 text-[14px] font-medium text-[#424245]">
+            <a href="#" className="hover:text-yellow-600 transition-colors">Home</a>
             <a href="#features" className="hover:text-yellow-600 transition-colors">Features</a>
-            <a href="#offer" className="hover:text-yellow-600 transition-colors">Pro Offer</a>
             <a href="#team" className="hover:text-yellow-600 transition-colors">Our Team</a>
+            <a href="#contact" className="hover:text-yellow-600 transition-colors">Contact Us</a>
           </div>
 
           <div className="flex items-center gap-3">
@@ -252,6 +253,62 @@ export default function CareerMockLanding() {
         </div>
       </section>
 
+      {/* Contact Section */}
+      <section id="contact" className="py-24 px-6 bg-[#fafafa] border-t border-gray-100 relative z-10">
+        <div className="max-w-[1100px] mx-auto">
+          <ScrollFadeIn>
+            <div className="text-center max-w-xl mx-auto mb-16">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-50 rounded-full text-[10px] font-bold uppercase tracking-widest text-yellow-600 border border-yellow-200 mb-4">
+                <Mail size={12} /> Get in Touch
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[#1D1D1F] mb-4">
+                Contact Us
+              </h2>
+              <p className="text-gray-500 font-medium text-sm md:text-base">
+                Have questions, partnership inquiries, or need support? Our team is here to help.
+              </p>
+            </div>
+          </ScrollFadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <ScrollFadeIn delay={0.1}>
+              <div className="bg-white p-8 rounded-[28px] border border-gray-100 shadow-sm text-center flex flex-col items-center hover:shadow-md transition-all">
+                <div className="w-14 h-14 rounded-2xl bg-yellow-50 border border-yellow-200 flex items-center justify-center mb-5 text-yellow-600">
+                  <Mail size={24} />
+                </div>
+                <h4 className="text-lg font-bold text-[#1d1d1f] mb-2">Email Support</h4>
+                <p className="text-gray-500 text-xs mb-4">Reach our team directly via email for any inquiries.</p>
+                <a href="mailto:support@careertalk.ai" className="text-yellow-600 text-xs font-bold hover:underline">
+                  support@careertalk.ai
+                </a>
+              </div>
+            </ScrollFadeIn>
+
+            <ScrollFadeIn delay={0.2}>
+              <div className="bg-white p-8 rounded-[28px] border border-gray-100 shadow-sm text-center flex flex-col items-center hover:shadow-md transition-all">
+                <div className="w-14 h-14 rounded-2xl bg-yellow-50 border border-yellow-200 flex items-center justify-center mb-5 text-yellow-600">
+                  <Phone size={24} />
+                </div>
+                <h4 className="text-lg font-bold text-[#1d1d1f] mb-2">Direct Line</h4>
+                <p className="text-gray-500 text-xs mb-4">Available Monday – Friday, 9:00 AM to 6:00 PM IST.</p>
+                <span className="text-gray-800 text-xs font-bold">+91 (800) 123-4567</span>
+              </div>
+            </ScrollFadeIn>
+
+            <ScrollFadeIn delay={0.3}>
+              <div className="bg-white p-8 rounded-[28px] border border-gray-100 shadow-sm text-center flex flex-col items-center hover:shadow-md transition-all">
+                <div className="w-14 h-14 rounded-2xl bg-yellow-50 border border-yellow-200 flex items-center justify-center mb-5 text-yellow-600">
+                  <MapPin size={24} />
+                </div>
+                <h4 className="text-lg font-bold text-[#1d1d1f] mb-2">Office Location</h4>
+                <p className="text-gray-500 text-xs mb-4">AI Innovation Center</p>
+                <span className="text-gray-800 text-xs font-bold">Bengaluru, Karnataka, India</span>
+              </div>
+            </ScrollFadeIn>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer onContextMenu={handleContextMenu} className="bg-[#FAF9F6] border-t border-gray-100 pt-20 pb-12 px-6 relative z-10 text-[#1D1D1F]">
         <div className="max-w-[1100px] mx-auto">
@@ -260,7 +317,7 @@ export default function CareerMockLanding() {
             <div className="space-y-4 md:col-span-1">
               <div className="flex items-center gap-3">
                 <Image src="/logo.png" alt="Logo" width={32} height={32} />
-                <span className="font-bold text-lg tracking-tight">Career Mock AI</span>
+                <span className="font-bold text-lg tracking-tight">Career Talk AI</span>
               </div>
               <p className="text-xs text-gray-500 leading-relaxed font-medium">
                 Elevating job interview readiness with real-time speech evaluation and intelligent AI-driven feedback.
