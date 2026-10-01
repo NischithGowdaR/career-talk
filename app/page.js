@@ -147,30 +147,110 @@ export default function CareerMockLanding() {
           2026
         </motion.div>
 
-        <div className="relative z-20">
-          <motion.div style={{ scale: logoScale, y: logoY }} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1 }} className="mb-8">
-            <div className="relative inline-block">
-                <Image src="/logo.png" alt="Logo" width={220} height={220} className="drop-shadow-2xl" />
-                <div className="absolute -top-2 -right-6 bg-white text-yellow-600 px-3 py-1 rounded-full font-bold text-[10px] shadow-sm border border-yellow-100 uppercase tracking-widest">
-                    2026 Edition
-                </div>
+        <div className="relative z-20 max-w-5xl mx-auto">
+          <ScrollFadeIn delay={0.1}>
+            <div className="flex items-center justify-center gap-2 mb-4 opacity-70 uppercase tracking-[0.4em] text-[11px] font-bold text-yellow-700">
+                <Sparkles size={14} className="text-yellow-600" /> Next-Gen AI Mock Interviews
             </div>
-          </motion.div>
-
-          <ScrollFadeIn delay={0.3}>
-            <div className="flex items-center justify-center gap-2 mb-4 opacity-40 uppercase tracking-[0.5em] text-[10px] font-bold">
-                <Sparkles size={12} className="text-yellow-600" /> Next-Gen AI Mock Interviews
-            </div>
-            <h1 className="text-6xl md:text-[90px] font-bold tracking-tighter leading-[0.95] mb-8">
-                Master Your <br /> <span className="text-yellow-600">Dream Interview.</span>
+            <h1 className="text-5xl sm:text-7xl md:text-[86px] font-bold tracking-tighter leading-[0.98] mb-6 text-[#1D1D1F]">
+                Master Your <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-amber-500 to-yellow-700">Dream Interview.</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-500 font-medium max-w-2xl mx-auto mb-10 leading-relaxed italic">
-              Elevate your interview skills with real-time AI feedback and realistic role-based scenarios.
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 font-medium max-w-2xl mx-auto mb-8 leading-relaxed">
+              Experience photorealistic AI video interviews with real-time speech evaluation, instant scoring, and tailored technical drills.
             </p>
-            <Button onClick={() => { triggerHaptic(50); router.push("/login"); }} size="lg" className="h-16 px-10 rounded-full bg-black hover:bg-yellow-600 text-white font-bold text-lg tracking-tight shadow-xl transition-colors">
-                Start Mock Interview <ChevronRight className="ml-2" />
-            </Button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+              <Button onClick={() => { triggerHaptic(50); router.push("/login"); }} size="lg" className="w-full sm:w-auto h-14 px-8 rounded-full bg-black hover:bg-yellow-600 text-white font-bold text-base tracking-tight shadow-xl transition-all">
+                  Start Mock Interview <ChevronRight className="ml-2" size={18} />
+              </Button>
+              <Button variant="outline" onClick={() => { triggerHaptic(); router.push("/recruiter/dashboard"); }} size="lg" className="w-full sm:w-auto h-14 px-8 rounded-full border-gray-200 text-gray-800 hover:bg-gray-50 font-bold text-base shadow-sm">
+                  Recruiter Portal
+              </Button>
+            </div>
           </ScrollFadeIn>
+
+          {/* Hero Realistic UI Mockup */}
+          <ScrollFadeIn delay={0.3} yOffset={40}>
+            <div className="relative mx-auto rounded-2xl md:rounded-3xl p-2 md:p-3 bg-gradient-to-b from-gray-200/80 via-gray-100/50 to-white/40 border border-gray-200/80 shadow-2xl shadow-yellow-900/10">
+              <div className="relative rounded-xl md:rounded-2xl overflow-hidden bg-gray-950 aspect-[16/9] w-full group">
+                <Image 
+                  src="/mockup_interview_ui.jpg" 
+                  alt="Career Talk AI Live Mock Interview Interface" 
+                  fill
+                  priority
+                  className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.01]" 
+                />
+                
+                {/* Floating Live Badge Overlays */}
+                <div className="absolute top-4 left-4 flex items-center gap-2 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-white text-[11px] font-semibold">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>AI Video & Voice Session</span>
+                </div>
+
+                <div className="hidden sm:flex absolute bottom-4 right-4 items-center gap-2 bg-black/60 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10 text-white text-xs font-semibold">
+                  <Sparkles size={14} className="text-yellow-400" />
+                  <span>Real-time Speech & Tone Evaluation</span>
+                </div>
+              </div>
+            </div>
+          </ScrollFadeIn>
+        </div>
+      </section>
+
+      {/* Trusted Companies Logo Marquee */}
+      <section className="py-12 border-y border-gray-100 bg-[#FAF9F6]">
+        <div className="max-w-[1100px] mx-auto px-6 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-gray-400 mb-8">
+            Empowering Candidates Interviewing At Leading Companies
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
+            <div className="h-8 flex items-center"><Image src="/clientLogos/Google.png" alt="Google" width={100} height={32} className="h-7 w-auto object-contain" /></div>
+            <div className="h-8 flex items-center"><Image src="/clientLogos/Wipro.svg" alt="Wipro" width={90} height={32} className="h-7 w-auto object-contain" /></div>
+            <div className="h-8 flex items-center"><Image src="/clientLogos/tata.png" alt="Tata" width={85} height={32} className="h-7 w-auto object-contain" /></div>
+            <div className="h-8 flex items-center"><Image src="/clientLogos/techmahindra.png" alt="Tech Mahindra" width={120} height={32} className="h-7 w-auto object-contain" /></div>
+            <div className="h-8 flex items-center"><Image src="/clientLogos/teleperformance.png" alt="Teleperformance" width={130} height={32} className="h-7 w-auto object-contain" /></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Visual Analytics Showcase Section */}
+      <section className="py-28 px-6 bg-white relative z-10">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <ScrollFadeIn>
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-50 rounded-full text-[11px] font-bold uppercase tracking-widest text-yellow-600 border border-yellow-200">
+                  <BarChart3 size={14} /> Comprehensive Analytics
+                </div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#1D1D1F] leading-tight">
+                  Instant AI Feedback & <br /> Skill Radar Breakdown.
+                </h2>
+                <p className="text-gray-600 font-medium text-base leading-relaxed">
+                  After every practice session, get immediate quantifiable feedback on communication fluency, technical accuracy, pace, and body language to level up before the real interview.
+                </p>
+                <div className="grid grid-cols-2 gap-4 pt-2">
+                  <div className="p-4 rounded-2xl bg-gray-50 border border-gray-100">
+                    <span className="text-2xl font-bold text-gray-900">94%</span>
+                    <p className="text-xs text-gray-500 font-medium mt-1">Average Readiness Score</p>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-gray-50 border border-gray-100">
+                    <span className="text-2xl font-bold text-yellow-600">3x Faster</span>
+                    <p className="text-xs text-gray-500 font-medium mt-1">Skill Improvement</p>
+                  </div>
+                </div>
+              </div>
+            </ScrollFadeIn>
+
+            <ScrollFadeIn delay={0.2}>
+              <div className="relative rounded-2xl overflow-hidden border border-gray-200 shadow-xl bg-white aspect-[16/9] w-full group">
+                <Image 
+                  src="/mockup_analytics_ui.jpg" 
+                  alt="Career Talk AI Feedback & Scorecard Report" 
+                  fill
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105" 
+                />
+              </div>
+            </ScrollFadeIn>
+          </div>
         </div>
       </section>
 
@@ -202,7 +282,7 @@ export default function CareerMockLanding() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-32 px-6 bg-white relative z-10">
+      <section id="features" className="py-32 px-6 bg-[#FAF9F6] relative z-10">
         <div className="max-w-[1100px] mx-auto text-center">
           <ScrollFadeIn>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-20 text-[#1D1D1F]">
@@ -217,7 +297,7 @@ export default function CareerMockLanding() {
               { icon: BarChart3, title: "Comprehensive Analytics", desc: "Track confidence, speech metrics, and detailed scoring insights over time.", color: "text-yellow-600" },
             ].map((feat, i) => (
               <ScrollFadeIn key={i} delay={i * 0.1}>
-                <div className="bg-[#fcfcfc] rounded-[32px] p-10 h-full border border-gray-100 flex flex-col group hover:shadow-xl transition-all">
+                <div className="bg-white rounded-[32px] p-10 h-full border border-gray-100 flex flex-col group hover:shadow-xl transition-all shadow-sm">
                   <feat.icon className={`${feat.color} w-10 h-10 mb-6 group-hover:scale-110 transition-transform`} />
                   <h3 className="text-2xl font-bold mb-3 tracking-tight">{feat.title}</h3>
                   <p className="text-[#636366] leading-relaxed text-sm font-medium">{feat.desc}</p>
@@ -229,10 +309,10 @@ export default function CareerMockLanding() {
       </section>
 
       {/* Team Section */}
-      <section id="team" className="py-32 px-6 bg-white border-t border-gray-50 relative z-10">
+      <section id="team" className="py-32 px-6 bg-white border-t border-gray-100 relative z-10">
         <div className="max-w-[1100px] mx-auto">
           <ScrollFadeIn>
-            <h2 className="text-4xl md:text-5xl font-bold text-center tracking-tight mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-center tracking-tight mb-20 text-[#1D1D1F]">
               The engineers behind <br /> your success.
             </h2>
           </ScrollFadeIn>
@@ -241,8 +321,8 @@ export default function CareerMockLanding() {
             {teamMembers.map((member, i) => (
               <ScrollFadeIn key={i} delay={i * 0.1}>
                 <div className="group flex flex-col items-center text-center p-8 bg-[#fcfcfc] rounded-[32px] border border-gray-100 transition-all hover:bg-white hover:shadow-xl shadow-sm">
-                  <div className="w-20 h-20 rounded-full bg-yellow-50 border border-yellow-200 flex items-center justify-center mb-6 text-yellow-600 group-hover:scale-110 transition-transform">
-                    <User size={36} />
+                  <div className="w-24 h-24 rounded-full bg-yellow-50 border-2 border-yellow-200 flex items-center justify-center mb-6 text-yellow-600 group-hover:scale-105 transition-transform overflow-hidden shadow-inner">
+                    <User size={40} />
                   </div>
                   <h4 className="text-xl font-bold text-[#1d1d1f] mb-1 tracking-tight">{member.name}</h4>
                   <p className="text-[#636366] text-xs font-semibold uppercase tracking-widest">{member.role}</p>
