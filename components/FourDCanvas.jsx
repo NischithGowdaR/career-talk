@@ -57,16 +57,16 @@ export default function FourDCanvas() {
       }
     }
 
-    // 4D Spatial Particles
-    const particleCount = 75;
+    // 4D Spatial Particles with Rich Multi-Color Palette
+    const particleCount = 85;
     const particles = Array.from({ length: particleCount }, () => ({
       x: (Math.random() - 0.5) * 1600,
       y: (Math.random() - 0.5) * 1200,
       z: Math.random() * 800 + 200,
       w: Math.random() * 400 - 200,
-      radius: Math.random() * 2 + 1,
+      radius: Math.random() * 2.2 + 1,
       speed: Math.random() * 0.8 + 0.3,
-      color: Math.random() > 0.6 ? "#D4FF00" : Math.random() > 0.3 ? "#FF5722" : "#E024C3",
+      color: ["#00F0FF", "#8B5CF6", "#EC4899", "#10B981", "#F59E0B", "#38BDF8"][Math.floor(Math.random() * 6)],
       pulse: Math.random() * Math.PI * 2,
     }));
 
@@ -90,18 +90,19 @@ export default function FourDCanvas() {
 
       ctx.clearRect(0, 0, width, height);
 
-      // Deep Volcanic Studio Gradient
+      // Deep Cosmic Nebula Multi-stop Radial Gradient (Rich vibrant hues)
       const bg = ctx.createRadialGradient(
-        width * 0.5 + mX * 100,
-        height * 0.4 + mY * 80,
-        50,
+        width * 0.5 + mX * 120,
+        height * 0.35 + mY * 90,
+        60,
         width * 0.5,
         height * 0.5,
-        Math.max(width, height) * 0.85
+        Math.max(width, height) * 0.95
       );
-      bg.addColorStop(0, "#131722");
-      bg.addColorStop(0.5, "#0A0B0E");
-      bg.addColorStop(1, "#050608");
+      bg.addColorStop(0, "#161B33"); // Deep Cosmic Indigo
+      bg.addColorStop(0.35, "#0F172A"); // Rich Slate Midnight
+      bg.addColorStop(0.7, "#0B1021"); // Deep Oceanic Night
+      bg.addColorStop(1, "#070A14"); // Dark Velvet Navy
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, width, height);
 
@@ -158,9 +159,10 @@ export default function FourDCanvas() {
         const alpha = Math.max(0.08, Math.min(0.55, (avgW + 1.2) * 0.28));
 
         const edgeGrad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-        edgeGrad.addColorStop(0, `rgba(212, 255, 0, ${alpha * 1.2})`);
-        edgeGrad.addColorStop(0.5, `rgba(255, 87, 34, ${alpha * 0.9})`);
-        edgeGrad.addColorStop(1, `rgba(224, 36, 195, ${alpha * 0.8})`);
+        edgeGrad.addColorStop(0, `rgba(0, 240, 255, ${alpha * 1.3})`);
+        edgeGrad.addColorStop(0.35, `rgba(139, 92, 246, ${alpha * 1.1})`);
+        edgeGrad.addColorStop(0.7, `rgba(236, 72, 153, ${alpha * 1.0})`);
+        edgeGrad.addColorStop(1, `rgba(16, 185, 129, ${alpha * 0.9})`);
 
         ctx.strokeStyle = edgeGrad;
         ctx.lineWidth = Math.max(0.8, p1.factor * 2.2);
@@ -174,7 +176,9 @@ export default function FourDCanvas() {
       projectedVertices.forEach((p, idx) => {
         const radius = Math.max(1.5, p.factor * 4.5);
         const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 3);
-        glow.addColorStop(0, idx % 2 === 0 ? "rgba(212, 255, 0, 0.9)" : "rgba(255, 87, 34, 0.9)");
+        const nodeColors = ["#00F0FF", "#8B5CF6", "#EC4899", "#10B981"];
+        const chosenColor = nodeColors[idx % nodeColors.length];
+        glow.addColorStop(0, chosenColor);
         glow.addColorStop(1, "rgba(0, 0, 0, 0)");
 
         ctx.fillStyle = glow;
@@ -182,7 +186,7 @@ export default function FourDCanvas() {
         ctx.arc(p.x, p.y, radius * 3, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = idx % 2 === 0 ? "#D4FF00" : "#FF5722";
+        ctx.fillStyle = chosenColor;
         ctx.beginPath();
         ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
         ctx.fill();
@@ -205,7 +209,7 @@ export default function FourDCanvas() {
 
         if (sx > 0 && sx < width && sy > 0 && sy < height) {
           ctx.fillStyle = p.color;
-          ctx.globalAlpha = Math.min(0.7, pScale * 0.9);
+          ctx.globalAlpha = Math.min(0.75, pScale * 0.95);
           ctx.beginPath();
           ctx.arc(sx, sy, radius, 0, Math.PI * 2);
           ctx.fill();
@@ -214,25 +218,26 @@ export default function FourDCanvas() {
       });
 
       // --- 4D AUDIO FREQUENCY ENERGY WAVES AT BOTTOM ---
-      const waveCount = 50;
+      const waveCount = 60;
       const barWidth = width / waveCount;
-      const waveY = height * 0.92;
+      const waveY = height * 0.94;
 
       for (let i = 0; i < waveCount; i++) {
         const bx = i * barWidth + barWidth * 0.5;
         const waveH =
-          Math.sin(angleZW * 3 + i * 0.35) * 25 +
-          Math.cos(angleXY * 2 + i * 0.25) * 20 +
-          Math.sin(i * 0.5) * 15 +
-          30;
+          Math.sin(angleZW * 3 + i * 0.35) * 28 +
+          Math.cos(angleXY * 2 + i * 0.25) * 22 +
+          Math.sin(i * 0.5) * 16 +
+          32;
 
         const grad = ctx.createLinearGradient(bx, waveY - waveH, bx, waveY + waveH);
-        grad.addColorStop(0, "rgba(212, 255, 0, 0.45)");
-        grad.addColorStop(0.5, "rgba(255, 87, 34, 0.35)");
-        grad.addColorStop(1, "rgba(224, 36, 195, 0.1)");
+        grad.addColorStop(0, "rgba(0, 240, 255, 0.6)");
+        grad.addColorStop(0.35, "rgba(139, 92, 246, 0.5)");
+        grad.addColorStop(0.7, "rgba(236, 72, 153, 0.4)");
+        grad.addColorStop(1, "rgba(16, 185, 129, 0.2)");
 
         ctx.strokeStyle = grad;
-        ctx.lineWidth = Math.max(2, barWidth * 0.4);
+        ctx.lineWidth = Math.max(2, barWidth * 0.45);
         ctx.beginPath();
         ctx.moveTo(bx, waveY - waveH * 0.5);
         ctx.lineTo(bx, waveY + waveH * 0.5);
