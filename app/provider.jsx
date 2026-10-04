@@ -17,7 +17,18 @@ function Provider({ children }) {
     const { data: authData, error: authError } = await supabase.auth.getUser();
 
     if (authError || !authData?.user) {
-      console.warn("No authenticated user found:", authError?.message);
+      if (typeof window !== "undefined" && localStorage.getItem("demo_candidate_active") === "true") {
+        setUser({
+          name: "Alex Rivera",
+          email: "demo.candidate@careertalk.ai",
+          role: "candidate",
+          picture: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250",
+          credits: 5,
+          banned: false,
+        });
+      } else {
+        console.warn("No authenticated user found:", authError?.message);
+      }
       return;
     }
 

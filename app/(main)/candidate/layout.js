@@ -17,6 +17,13 @@ function DashboardLayout({ children }) {
       const { data, error } = await supabase.auth.getUser();
 
       if (error || !data?.user) {
+        // Allow Demo Candidate Mode if enabled
+        const isDemo = typeof window !== 'undefined' && localStorage.getItem('demo_candidate_active') === 'true';
+        if (isDemo) {
+          setLoading(false);
+          return;
+        }
+
         toast.error('Please log in to continue.');
         router.replace('/login'); // Redirect to login if not authenticated
         return;
@@ -28,13 +35,14 @@ function DashboardLayout({ children }) {
     checkAuth();
 
     // Listen for logout events
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+      const isDemo = typeof window !== 'undefined' && localStorage.getItem('demo_candidate_active') === 'true';
+      if (event === 'SIGNED_OUT' && !isDemo) {
         router.replace('/login');
       }
     });
 
-    return () => listener?.subscription.unsubscribe();
+    return () => listener?.subscription?.unsubscribe?.();
   }, [router]);
 
   if (loading) {

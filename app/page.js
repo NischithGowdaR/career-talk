@@ -254,6 +254,33 @@ export default function CareerMockLanding() {
     router.push(path);
   };
 
+  const handleStartMock = (track = "") => {
+    triggerHaptic(40);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("demo_candidate_active", "true");
+      if (track) {
+        sessionStorage.setItem("selected_interview_track", track);
+      }
+    }
+    router.push("/candidate/dashboard");
+  };
+
+  const handleLaunchVoiceRoom = () => {
+    triggerHaptic(40);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("demo_candidate_active", "true");
+    }
+    router.push("/candidate/dashboard");
+  };
+
+  const handleScorecardSimulation = () => {
+    triggerHaptic(40);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("demo_candidate_active", "true");
+    }
+    router.push("/candidate/interviews");
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#090D1A] via-[#0E1529] to-[#0A0D1D] text-[#F1F5F9] font-sans antialiased relative selection:bg-cyan-400 selection:text-black overflow-x-hidden">
       
@@ -261,7 +288,6 @@ export default function CareerMockLanding() {
       <div className="fixed top-20 left-10 w-[500px] h-[500px] bg-gradient-to-tr from-[#00F0FF]/15 via-[#3B82F6]/10 to-transparent blur-[140px] rounded-full pointer-events-none z-0" />
       <div className="fixed top-40 right-10 w-[550px] h-[550px] bg-gradient-to-bl from-[#8B5CF6]/18 via-[#EC4899]/12 to-transparent blur-[150px] rounded-full pointer-events-none z-0" />
       <div className="fixed bottom-32 left-1/3 w-[600px] h-[600px] bg-gradient-to-t from-[#10B981]/12 via-[#06B6D4]/10 to-transparent blur-[160px] rounded-full pointer-events-none z-0" />
-
 
       {/* --- SLEEK COLORFUL GLASS NAVIGATION BAR --- */}
       <nav className="fixed top-0 z-[100] w-full bg-[#090D1A]/85 backdrop-blur-2xl border-b border-indigo-500/20 shadow-[0_4px_30px_rgba(0,10,35,0.7)]">
@@ -313,7 +339,7 @@ export default function CareerMockLanding() {
               Sign In
             </Button>
             <Button
-              onClick={() => handleNavigate("/login")}
+              onClick={() => handleStartMock()}
               className="relative group rounded-full px-6 h-11 font-black text-sm bg-gradient-to-r from-[#00F0FF] via-[#6366F1] to-[#8B5CF6] hover:opacity-95 text-white shadow-[0_0_25px_rgba(0,240,255,0.4)] active:scale-95 transition-all flex items-center gap-2"
             >
               <span>Start Free Mock</span>
@@ -356,7 +382,7 @@ export default function CareerMockLanding() {
                 <Button onClick={() => handleNavigate("/login")} variant="outline" className="w-full border-white/20 text-white rounded-xl">
                   Sign In
                 </Button>
-                <Button onClick={() => handleNavigate("/login")} className="w-full bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-white font-black rounded-xl shadow-[0_0_20px_rgba(0,240,255,0.4)]">
+                <Button onClick={() => handleStartMock()} className="w-full bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-white font-black rounded-xl shadow-[0_0_20px_rgba(0,240,255,0.4)]">
                   Start Free Mock
                 </Button>
               </div>
@@ -431,7 +457,7 @@ export default function CareerMockLanding() {
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
                 <Button
-                  onClick={() => handleNavigate("/login")}
+                  onClick={() => handleStartMock()}
                   size="lg"
                   className="w-full sm:w-auto h-14 px-8 rounded-2xl bg-gradient-to-r from-[#00F0FF] via-[#6366F1] to-[#8B5CF6] hover:opacity-95 text-white font-black text-base shadow-[0_10px_35px_rgba(0,240,255,0.35)] transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group"
                 >
@@ -574,7 +600,7 @@ export default function CareerMockLanding() {
 
               <div className="pt-2">
                 <Button
-                  onClick={() => handleNavigate("/login")}
+                  onClick={() => handleLaunchVoiceRoom()}
                   className="h-12 px-7 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 text-white font-black text-sm shadow-[0_0_25px_rgba(0,240,255,0.3)] flex items-center gap-2"
                 >
                   <span>Launch Live Voice Room</span>
@@ -699,7 +725,7 @@ export default function CareerMockLanding() {
                       </div>
 
                       <Button
-                        onClick={() => handleNavigate("/login")}
+                        onClick={() => handleStartMock(track.abbreviation)}
                         className="w-full h-11 rounded-xl bg-white/10 hover:bg-gradient-to-r hover:from-[#00F0FF] hover:to-[#8B5CF6] hover:text-white text-white border border-white/15 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2"
                       >
                         <span>Practice {track.abbreviation}</span>
@@ -840,7 +866,7 @@ export default function CareerMockLanding() {
 
               <div className="pt-2">
                 <Button
-                  onClick={() => handleNavigate("/login")}
+                  onClick={() => handleScorecardSimulation()}
                   className="h-12 px-7 rounded-xl bg-gradient-to-r from-[#10B981] to-[#00F0FF] hover:opacity-95 text-slate-950 font-black text-sm shadow-[0_0_25px_rgba(16,185,129,0.3)] flex items-center gap-2"
                 >
                   <span>Experience Scorecard Simulation</span>
@@ -985,7 +1011,7 @@ export default function CareerMockLanding() {
 
                   <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Button
-                      onClick={() => handleNavigate("/login")}
+                      onClick={() => handleStartMock()}
                       size="lg"
                       className="w-full sm:w-auto h-14 px-10 rounded-2xl bg-gradient-to-r from-[#00F0FF] via-[#6366F1] to-[#8B5CF6] hover:opacity-95 text-white font-black text-base shadow-[0_0_35px_rgba(0,240,255,0.45)] active:scale-95 transition-all"
                     >

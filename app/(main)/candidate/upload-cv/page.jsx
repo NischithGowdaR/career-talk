@@ -38,45 +38,96 @@ export default function UploadCV() {
   async function fetchUser() {
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
+      if (!session) {
+        if (typeof window !== "undefined" && localStorage.getItem("demo_candidate_active") === "true") {
+          setUser({
+            id: 'demo-candidate-123',
+            email: 'demo.candidate@careertalk.ai',
+            name: 'Alex Rivera',
+            cv_file_path: null,
+          });
+        }
+        return;
+      }
       const { data: userData } = await supabase
         .from('users')
         .select('id, email, name, cv_file_path')
         .eq('email', session.user.email)
         .single();
       if (userData) setUser(userData);
-    } catch (err) { console.error(err); }
+      else {
+        setUser({
+          id: session.user.id,
+          email: session.user.email,
+          name: session.user.user_metadata?.name || session.user.email.split('@')[0],
+          cv_file_path: null,
+        });
+      }
+    } catch (err) { 
+      console.error(err);
+      if (typeof window !== "undefined" && localStorage.getItem("demo_candidate_active") === "true") {
+        setUser({
+          id: 'demo-candidate-123',
+          email: 'demo.candidate@careertalk.ai',
+          name: 'Alex Rivera',
+          cv_file_path: null,
+        });
+      }
+    }
   }
 
   async function getSignedUrl(path) {
-    const { data } = await supabase.storage.from('cv-uploads').createSignedUrl(path, 3600);
-    if (data) setPreviewUrl(data.signedUrl);
+    if (!path) return;
+    try {
+      const { data } = await supabase.storage.from('cv-uploads').createSignedUrl(path, 3600);
+      if (data) setPreviewUrl(data.signedUrl);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   const handleFileDrop = (files) => { if (files.length > 0) setUploadedFile(files[0]); };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!uploadedFile) return;
     setLoading(true);
     try {
+      if (user?.id === 'demo-candidate-123') {
+        setTimeout(() => {
+          setUser({ ...user, cv_file_path: 'demo_resume.pdf' });
+          setUploadedFile(null);
+          setLoading(false);
+          toast.success('Resume Synced Successfully (Demo Mode)');
+        }, 800);
+        return;
+      }
       const filePath = `cv/${user.id}/cv_${Date.now()}.pdf`;
       await supabase.storage.from('cv-uploads').upload(filePath, uploadedFile, { upsert: true });
       await supabase.from('users').update({ cv_file_path: filePath }).eq('id', user.id);
       setUser({ ...user, cv_file_path: filePath });
       setUploadedFile(null);
       toast.success('Sync Complete');
-    } catch (error) { toast.error('Error'); } 
+    } catch (error) { toast.error('Error uploading file'); } 
     finally { setLoading(false); }
   };
 
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await supabase.storage.from('cv-uploads').remove([user.cv_file_path]);
-      await supabase.from('users').update({ cv_file_path: null }).eq('id', user.id);
+      if (user?.id === 'demo-candidate-123') {
+        setUser({ ...user, cv_file_path: null });
+        toast.success('CV Removed');
+        setLoading(false);
+        return;
+      }
+      if (user?.cv_file_path) {
+        await supabase.storage.from('cv-uploads').remove([user.cv_file_path]);
+        await supabase.from('users').update({ cv_file_path: null }).eq('id', user.id);
+      }
       setUser({ ...user, cv_file_path: null });
       toast.success('CV Removed');
-    } catch (error) { toast.error('Error'); } 
+    } catch (error) { toast.error('Error removing CV'); } 
     finally { setLoading(false); }
   };
 
