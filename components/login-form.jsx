@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
-import { useState, useRef } from "react";
+import Link from "next/link";
+import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import { UserAuth } from "@/context/AuthContext";
 import { Mail, Lock, ArrowRight, Sparkles, AlertCircle, CheckCircle2 } from "lucide-react";
@@ -21,6 +22,11 @@ export function LoginForm(props) {
 
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    router.prefetch("/register");
+    router.prefetch("/candidate/dashboard");
+  }, [router]);
 
   const handleStartRegistering = () => {
     router.push("/register");
@@ -94,13 +100,13 @@ export function LoginForm(props) {
             <p className="font-bold">{errorMessage}</p>
             <p className="text-[11px] text-rose-300/90">
               New to CareerTalk?{" "}
-              <button
-                type="button"
-                onClick={handleStartRegistering}
+              <Link
+                href="/register"
+                prefetch={true}
                 className="underline font-bold hover:text-white"
               >
                 Sign up here
-              </button>{" "}
+              </Link>{" "}
               or use Instant Demo.
             </p>
           </div>
@@ -130,12 +136,13 @@ export function LoginForm(props) {
             <Label htmlFor="password" className="text-xs font-bold text-slate-300">
               Password
             </Label>
-            <a
+            <Link
               href="/forgot-password"
+              prefetch={true}
               className="text-xs text-cyan-400 hover:text-cyan-300 underline-offset-4 hover:underline"
             >
               Forgot password?
-            </a>
+            </Link>
           </div>
 
           <div className="relative">
@@ -208,13 +215,13 @@ export function LoginForm(props) {
 
       <div className="text-center text-xs text-slate-300 pt-2">
         Don’t have an account?{" "}
-        <button
-          type="button"
+        <Link
+          href="/register"
+          prefetch={true}
           className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-4 cursor-pointer"
-          onClick={handleStartRegistering}
         >
           Create Free Account
-        </button>
+        </Link>
       </div>
     </div>
   );

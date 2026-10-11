@@ -188,7 +188,7 @@ function BugBlastGame() {
         <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8">
           <Bomb size={64} className="text-indigo-500 mb-6 animate-bounce" />
           <h2 className="text-3xl font-black text-white mb-2 tracking-tighter uppercase">Bug Blast v1.0</h2>
-          <p className="text-slate-400 text-sm mb-8 max-w-[250px] font-medium">Click the Red Bugs to clean the code. Avoid blasting the Career Mock Favicon!</p>
+          <p className="text-slate-400 text-sm mb-8 max-w-[250px] font-medium">Click the Red Bugs to clean the code. Avoid blasting the Career Talk Favicon!</p>
           <button 
             onClick={startFixing}
             className="px-10 py-4 bg-indigo-600 text-white rounded-full font-black uppercase tracking-widest shadow-2xl shadow-indigo-500/50 active:scale-95 transition-all"

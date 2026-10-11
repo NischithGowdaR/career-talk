@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Career Mock",
+  title: "Career Talk",
   description: "AI INTERVIEW PLATFORM",
 };
 
@@ -19,10 +19,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Razorpay */}
+        {/* Razorpay (loaded lazily so it never blocks page hydration or route transitions) */}
         <Script
           src="https://checkout.razorpay.com/v1/checkout.js"
-          strategy="beforeInteractive"
+          strategy="lazyOnload"
         />
 
         {/* Cloudflare Turnstile is managed by Supabase server-side — no client script */}

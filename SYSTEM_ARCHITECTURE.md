@@ -1,8 +1,8 @@
-# 🏗️ Career-Mock AI Voice Interview Platform — Complete System Architecture
+# 🏗️ Career-Talk AI Voice Interview Platform — Complete System Architecture
 
 ## 1. Executive Summary
 
-**Career-Mock** is an automated, AI-powered voice interview platform engineered to bridge the gap between traditional recruitment workflows and intelligent automated screening. The platform leverages **Next.js 15 (React 18)**, **Supabase PostgreSQL & Auth**, **VAPI Real-Time Voice WebRTC/STT/TTS**, **Groq / OpenRouter LLMs**, and **Razorpay Payment Gateway** to provide an end-to-end interview simulation, scoring, and analytics ecosystem.
+**Career Talk** is an automated, AI-powered voice interview platform engineered to bridge the gap between traditional recruitment workflows and intelligent automated screening. The platform leverages **Next.js 15 (React 18)**, **Supabase PostgreSQL & Auth**, **VAPI Real-Time Voice WebRTC/STT/TTS**, **Groq / OpenRouter LLMs**, and **Razorpay Payment Gateway** to provide an end-to-end interview simulation, scoring, and analytics ecosystem.
 
 ---
 

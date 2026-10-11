@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { UserAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,10 @@ export function RegisterForm() {
   const [role, setRole] = useState("candidate");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    router.prefetch("/login");
+  }, [router]);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -88,7 +93,7 @@ export function RegisterForm() {
           <div>
             <p className="font-bold">{error}</p>
             <p className="text-[11px] text-rose-300/90 mt-0.5">
-              Already have an account? <a href="/login" className="underline font-bold hover:text-white">Sign In</a>
+              Already have an account? <Link href="/login" prefetch={true} className="underline font-bold hover:text-white">Sign In</Link>
             </p>
           </div>
         </div>
@@ -207,9 +212,9 @@ export function RegisterForm() {
 
       <div className="text-center text-xs text-slate-300 pt-1">
         Already have an account?{" "}
-        <a href="/login" className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-4">
+        <Link href="/login" prefetch={true} className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-4">
           Sign in
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -37,6 +37,7 @@ import {
   Box,
   Compass,
   Laptop,
+  Lock,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -235,7 +236,7 @@ const FAQS = [
   },
 ];
 
-export default function CareerMockLanding() {
+export default function CareerTalkLanding() {
   const router = useRouter();
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -249,6 +250,12 @@ export default function CareerMockLanding() {
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.4]);
 
+  // Prefetch critical auth routes instantly so opening sign-in page is 0ms / instantaneous
+  useEffect(() => {
+    router.prefetch("/login");
+    router.prefetch("/register");
+  }, [router]);
+
   const handleNavigate = (path) => {
     triggerHaptic(40);
     router.push(path);
@@ -256,29 +263,20 @@ export default function CareerMockLanding() {
 
   const handleStartMock = (track = "") => {
     triggerHaptic(40);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("demo_candidate_active", "true");
-      if (track) {
-        sessionStorage.setItem("selected_interview_track", track);
-      }
+    if (track && typeof window !== "undefined") {
+      sessionStorage.setItem("selected_interview_track", track);
     }
-    router.push("/candidate/dashboard");
+    router.push("/login");
   };
 
   const handleLaunchVoiceRoom = () => {
     triggerHaptic(40);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("demo_candidate_active", "true");
-    }
-    router.push("/candidate/dashboard");
+    router.push("/login");
   };
 
   const handleScorecardSimulation = () => {
     triggerHaptic(40);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("demo_candidate_active", "true");
-    }
-    router.push("/candidate/interviews");
+    router.push("/login");
   };
 
   return (
@@ -308,7 +306,7 @@ export default function CareerMockLanding() {
               <span className="text-xl font-black tracking-tight text-white group-hover:text-cyan-300 transition-colors">
                 CareerTalk <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F0FF] to-[#A78BFA]">AI</span>
               </span>
-              <span className="text-[10px] text-cyan-200/70 font-mono tracking-widest uppercase">Autonomous Mock Platform</span>
+              <span className="text-[10px] text-cyan-200/70 font-mono tracking-widest uppercase">Autonomous Career Platform</span>
             </div>
           </Link>
 
@@ -329,22 +327,25 @@ export default function CareerMockLanding() {
             <a href="#faq" className="hover:text-cyan-300 transition-colors">FAQ</a>
           </div>
 
-          {/* Action Buttons */}
+          {/* Action Buttons: Log In & Sign In */}
           <div className="hidden sm:flex items-center gap-3">
-            <Button
-              variant="ghost"
-              onClick={() => handleNavigate("/login")}
-              className="text-sm font-bold text-slate-200 hover:text-white hover:bg-white/10 rounded-full px-5 h-11 transition-all"
+            <Link
+              href="/login"
+              prefetch={true}
+              onClick={() => triggerHaptic(40)}
+              className="inline-flex items-center justify-center text-sm font-bold text-slate-200 hover:text-white hover:bg-white/10 rounded-full px-5 h-11 transition-all"
             >
-              Sign In
-            </Button>
-            <Button
-              onClick={() => handleStartMock()}
+              Log In
+            </Link>
+            <Link
+              href="/login"
+              prefetch={true}
+              onClick={() => triggerHaptic(40)}
               className="relative group rounded-full px-6 h-11 font-black text-sm bg-gradient-to-r from-[#00F0FF] via-[#6366F1] to-[#8B5CF6] hover:opacity-95 text-white shadow-[0_0_25px_rgba(0,240,255,0.4)] active:scale-95 transition-all flex items-center gap-2"
             >
-              <span>Start Free Mock</span>
+              <span>Sign In</span>
               <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
-            </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -379,12 +380,28 @@ export default function CareerMockLanding() {
                 <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="hover:text-cyan-300 py-1">FAQ</a>
               </div>
               <div className="pt-4 border-t border-white/10 flex flex-col gap-3">
-                <Button onClick={() => handleNavigate("/login")} variant="outline" className="w-full border-white/20 text-white rounded-xl">
+                <Link
+                  href="/login"
+                  prefetch={true}
+                  onClick={() => {
+                    triggerHaptic(40);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full inline-flex items-center justify-center h-11 border border-white/20 text-white rounded-xl text-sm font-semibold hover:bg-white/10 transition-all"
+                >
+                  Log In
+                </Link>
+                <Link
+                  href="/login"
+                  prefetch={true}
+                  onClick={() => {
+                    triggerHaptic(40);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full inline-flex items-center justify-center h-11 bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-white font-black rounded-xl shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all"
+                >
                   Sign In
-                </Button>
-                <Button onClick={() => handleStartMock()} className="w-full bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-white font-black rounded-xl shadow-[0_0_20px_rgba(0,240,255,0.4)]">
-                  Start Free Mock
-                </Button>
+                </Link>
               </div>
             </motion.div>
           )}
@@ -454,25 +471,27 @@ export default function CareerMockLanding() {
                 Practice realistic technical coding, architecture, and behavioral drills with our intelligent AI interviewer. Speak naturally, receive instant rubric scores, and master interview confidence.
               </p>
 
-              {/* Action Buttons */}
+              {/* Action Buttons: Sign In / Log In */}
               <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
-                <Button
-                  onClick={() => handleStartMock()}
-                  size="lg"
+                <Link
+                  href="/login"
+                  prefetch={true}
+                  onClick={() => triggerHaptic(40)}
                   className="w-full sm:w-auto h-14 px-8 rounded-2xl bg-gradient-to-r from-[#00F0FF] via-[#6366F1] to-[#8B5CF6] hover:opacity-95 text-white font-black text-base shadow-[0_10px_35px_rgba(0,240,255,0.35)] transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group"
                 >
-                  <span>Start Practicing Free</span>
+                  <span>Sign In</span>
                   <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                </Button>
+                </Link>
 
-                <a
-                  href="#tracks"
-                  onClick={() => triggerHaptic()}
+                <Link
+                  href="/login"
+                  prefetch={true}
+                  onClick={() => triggerHaptic(40)}
                   className="w-full sm:w-auto h-14 px-8 rounded-2xl bg-indigo-950/40 hover:bg-indigo-900/50 border border-purple-500/40 text-purple-200 font-bold text-base shadow-sm transition-all hover:border-purple-400 flex items-center justify-center gap-2.5"
                 >
-                  <Layers size={16} className="text-purple-400" />
-                  <span>Explore 50+ Tracks</span>
-                </a>
+                  <Lock size={16} className="text-purple-400" />
+                  <span>Log In to Practice</span>
+                </Link>
               </div>
 
               {/* Quick Metrics Strip in 2x2 Grid */}
@@ -599,13 +618,15 @@ export default function CareerMockLanding() {
               </div>
 
               <div className="pt-2">
-                <Button
-                  onClick={() => handleLaunchVoiceRoom()}
-                  className="h-12 px-7 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 text-white font-black text-sm shadow-[0_0_25px_rgba(0,240,255,0.3)] flex items-center gap-2"
+                <Link
+                  href="/login"
+                  prefetch={true}
+                  onClick={() => triggerHaptic(40)}
+                  className="inline-flex items-center justify-center h-12 px-7 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] hover:opacity-95 text-white font-black text-sm shadow-[0_0_25px_rgba(0,240,255,0.3)] gap-2 transition-all active:scale-95"
                 >
-                  <span>Launch Live Voice Room</span>
+                  <span>Sign In to Launch Live Room</span>
                   <ArrowRight size={16} />
-                </Button>
+                </Link>
               </div>
             </FadeIn>
           </div>
@@ -724,13 +745,20 @@ export default function CareerMockLanding() {
                         </div>
                       </div>
 
-                      <Button
-                        onClick={() => handleStartMock(track.abbreviation)}
+                      <Link
+                        href="/login"
+                        prefetch={true}
+                        onClick={() => {
+                          triggerHaptic(40);
+                          if (typeof window !== "undefined") {
+                            sessionStorage.setItem("selected_interview_track", track.abbreviation);
+                          }
+                        }}
                         className="w-full h-11 rounded-xl bg-white/10 hover:bg-gradient-to-r hover:from-[#00F0FF] hover:to-[#8B5CF6] hover:text-white text-white border border-white/15 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2"
                       >
                         <span>Practice {track.abbreviation}</span>
                         <ChevronRight size={14} />
-                      </Button>
+                      </Link>
                     </div>
                   </FourDCard>
                 </FadeIn>
@@ -865,13 +893,15 @@ export default function CareerMockLanding() {
               </div>
 
               <div className="pt-2">
-                <Button
-                  onClick={() => handleScorecardSimulation()}
-                  className="h-12 px-7 rounded-xl bg-gradient-to-r from-[#10B981] to-[#00F0FF] hover:opacity-95 text-slate-950 font-black text-sm shadow-[0_0_25px_rgba(16,185,129,0.3)] flex items-center gap-2"
+                <Link
+                  href="/login"
+                  prefetch={true}
+                  onClick={() => triggerHaptic(40)}
+                  className="inline-flex items-center justify-center h-12 px-7 rounded-xl bg-gradient-to-r from-[#10B981] to-[#00F0FF] hover:opacity-95 text-slate-950 font-black text-sm shadow-[0_0_25px_rgba(16,185,129,0.3)] gap-2 transition-all active:scale-95"
                 >
-                  <span>Experience Scorecard Simulation</span>
+                  <span>Sign In for Scorecards</span>
                   <ArrowRight size={16} />
-                </Button>
+                </Link>
               </div>
             </FadeIn>
           </div>
@@ -1010,21 +1040,23 @@ export default function CareerMockLanding() {
                   </p>
 
                   <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <Button
-                      onClick={() => handleStartMock()}
-                      size="lg"
-                      className="w-full sm:w-auto h-14 px-10 rounded-2xl bg-gradient-to-r from-[#00F0FF] via-[#6366F1] to-[#8B5CF6] hover:opacity-95 text-white font-black text-base shadow-[0_0_35px_rgba(0,240,255,0.45)] active:scale-95 transition-all"
+                    <Link
+                      href="/login"
+                      prefetch={true}
+                      onClick={() => triggerHaptic(40)}
+                      className="w-full sm:w-auto h-14 px-10 rounded-2xl bg-gradient-to-r from-[#00F0FF] via-[#6366F1] to-[#8B5CF6] hover:opacity-95 text-white font-black text-base shadow-[0_0_35px_rgba(0,240,255,0.45)] active:scale-95 transition-all inline-flex items-center justify-center gap-2"
                     >
-                      Start Free AI Voice Mock
-                    </Button>
-                    <Button
-                      onClick={() => handleNavigate("/login")}
-                      size="lg"
-                      variant="outline"
-                      className="w-full sm:w-auto h-14 px-8 rounded-2xl bg-white/10 hover:bg-white/20 border-white/30 text-white font-bold text-base transition-all"
+                      <span>Sign In</span>
+                      <ArrowRight size={18} />
+                    </Link>
+                    <Link
+                      href="/login"
+                      prefetch={true}
+                      onClick={() => triggerHaptic(40)}
+                      className="w-full sm:w-auto h-14 px-8 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold text-base transition-all inline-flex items-center justify-center"
                     >
-                      Sign In to Account
-                    </Button>
+                      <span>Log In</span>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -1074,7 +1106,7 @@ export default function CareerMockLanding() {
                 <li><a href="#how-it-works" className="hover:text-amber-300 transition-colors">Assessment Methodology</a></li>
                 <li><a href="#analytics" className="hover:text-emerald-300 transition-colors">Instant Scorecards</a></li>
                 <li><a href="#testimonials" className="hover:text-pink-300 transition-colors">Candidate Reviews</a></li>
-                <li><Link href="/login" className="hover:text-cyan-300 transition-colors">Candidate Sign In</Link></li>
+                <li><Link href="/login" prefetch={true} className="hover:text-cyan-300 transition-colors">Candidate Sign In</Link></li>
               </ul>
             </div>
 

@@ -255,7 +255,7 @@ function Interview() {
             <Image src="/logo.png" alt="Logo" width={48} height={48} priority />
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">Secure Gateway</h1>
-          <p className="text-gray-500 mt-1 uppercase text-[10px] font-black tracking-widest">Career Mock AI Assessment</p>
+          <p className="text-gray-500 mt-1 uppercase text-[10px] font-black tracking-widest">Career Talk AI Assessment</p>
         </div>
 
         <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-indigo-100/50 overflow-hidden border border-gray-100">

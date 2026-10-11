@@ -1,6 +1,6 @@
-# 🎙️ Career-Mock Voice based AI Interview Platform
+# 🎙️ Career-Talk Voice based AI Interview Platform
 
-🚀 **A next-generation career mock interview system powered by Artificial Intelligence and Voice Recognition.**
+🚀 **A next-generation Career Talk interview system powered by Artificial Intelligence and Voice Recognition.**
 
 In today’s world, industries and companies are moving toward **AI-driven virtual interviews**.  
 To contribute to this real-world transformation, I’ve developed an **AI-Based Voice Interview Platform** — a smart, interactive system designed to simulate real interview experiences for both recruiters and candidates.
@@ -9,7 +9,7 @@ To contribute to this real-world transformation, I’ve developed an **AI-Based 
 
 ## 🌟 Overview
 
-This platform acts as a **career mock AI interview application**, bridging the gap between human interaction and artificial intelligence in recruitment.
+This platform acts as a **Career Talk AI interview application**, bridging the gap between human interaction and artificial intelligence in recruitment.
 
 It consists of **three main user roles**:
 
@@ -73,7 +73,7 @@ Each role has distinct functionalities that ensure an efficient and automated in
 ## 🌍 Deployment
 
 The project is **deployed on Vercel** for seamless performance and accessibility.  
-🔗 **Live Demo:** [Career Mock](https://career-mock.vercel.app/)
+🔗 **Live Demo:** [Career Talk](https://career-talk.vercel.app/)
 
 ---
 

@@ -67,7 +67,7 @@ export default function Billing() {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_xxxxxxx",
         amount: selectedPackage.price * 100,
         currency: "INR",
-        name: "Career Mock 2026",
+        name: "Career Talk 2026",
         description: `New Year Offer: ${selectedPackage.name}`,
         order_id: data.id,
         handler: function (response) {

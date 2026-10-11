@@ -8,29 +8,42 @@ import { useRouter } from "next/navigation";
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [session, setSession] = useState(undefined);
-  const [userProfile, setUserProfile] = useState(undefined);
+  const [session, setSession] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
+  const [isLoadingSession, setIsLoadingSession] = useState(true);
   const router = useRouter();
 
   // 🔹 Initial session
   useEffect(() => {
+    let isMounted = true;
     const initSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      setSession(session);
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (isMounted) {
+          setSession(session);
+          setIsLoadingSession(false);
+        }
+      } catch (err) {
+        if (isMounted) setIsLoadingSession(false);
+      }
     };
 
     initSession();
 
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        setSession(session);
+        if (isMounted) {
+          setSession(session);
+          setIsLoadingSession(false);
+        }
       }
     );
 
     return () => {
-      listener.subscription.unsubscribe();
+      isMounted = false;
+      listener?.subscription?.unsubscribe();
     };
   }, []);
 
@@ -207,23 +220,12 @@ export const AuthContextProvider = ({ children }) => {
     router.push("/login");
   };
 
-  // 🔹 Loading screen
-  if (session === undefined) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading Screen. Please Wait..</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <AuthContext.Provider
       value={{
         session,
         userProfile,
+        isLoadingSession,
         signInUser,
         signUpNewUser,
         signOut,

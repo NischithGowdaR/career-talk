@@ -76,13 +76,13 @@ function WelcomeContainer() {
         <div className="flex items-center gap-2">
           <Image
             src="/fav.svg"
-            alt="Career Mock Logo"
+            alt="Career Talk Logo"
             width={32}
             height={32}
             className="object-contain"
           />
           <h1 className="text-lg font-bold text-blue-700 tracking-tight">
-            Career<span className="text-black"> Mock</span>
+            Career<span className="text-black"> Talk</span>
           </h1>
         </div>
 

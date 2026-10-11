@@ -164,11 +164,11 @@ function UserManagement() {
   };
 
   const handleSendMail = (email, username, credits) => {
-    const subject = encodeURIComponent('Greetings from Career Mock!');
+    const subject = encodeURIComponent('Greetings from Career Talk!');
     const body = encodeURIComponent(
       `Hello ${username || 'User'},\n\n` +
       `Your current credit balance is ${credits}.\n\n` +
-      `Best,\nCareer Mock Team`
+      `Best,\nCareer Talk Team`
     );
     window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
   };
