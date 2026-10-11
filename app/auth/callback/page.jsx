@@ -13,6 +13,17 @@ export default function AuthCallback() {
     const handleAuthRedirect = async () => {
       setLoading(true);
 
+      if (typeof window !== 'undefined') {
+        const searchParams = new URLSearchParams(window.location.search);
+        const code = searchParams.get('code');
+        if (code) {
+          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+          if (exchangeError) {
+            console.error('PKCE exchange error:', exchangeError);
+          }
+        }
+      }
+
       const {
         data: { session },
         error,
