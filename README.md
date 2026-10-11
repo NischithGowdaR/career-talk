@@ -70,13 +70,6 @@ Each role has distinct functionalities that ensure an efficient and automated in
 
 ---
 
-## 🌍 Deployment
-
-The project is **deployed on Vercel** for seamless performance and accessibility.  
-🔗 **Live Demo:** [Career Talk](https://career-talk.vercel.app/)
-
----
-
 ## 🧠 Key Highlights
 
 - 🎧 AI-based **voice interviews** powered by WAPI  
