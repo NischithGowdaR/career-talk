@@ -117,15 +117,15 @@ export const AuthContextProvider = ({ children }) => {
 
       // If user registered with metadata role that differs from DB row, sync DB
       if (metaRole && metaRole.trim().toLowerCase() !== userData?.role?.trim().toLowerCase()) {
-        await supabase
+        supabase
           .from("users")
           .update({ role: metaRole })
           .eq("email", cleanEmail);
         finalRole = metaRole.trim().toLowerCase();
-        userData.role = metaRole;
+        if (userData) userData.role = metaRole;
       }
 
-      if (userData.banned) {
+      if (userData?.banned) {
         await supabase.auth.signOut();
         return {
           success: false,
@@ -135,15 +135,12 @@ export const AuthContextProvider = ({ children }) => {
       }
 
       setUserProfile(userData);
-      toast.success("Logged in!");
+      toast.success("Welcome back!");
 
-      if (finalRole === "recruiter") {
-        window.location.href = "/recruiter/dashboard";
-      } else {
-        window.location.href = "/candidate/dashboard";
-      }
+      const targetPath = finalRole === "recruiter" ? "/recruiter/dashboard" : "/candidate/dashboard";
+      router.replace(targetPath);
 
-      return { success: true, data };
+      return { success: true, data, role: finalRole };
     } catch (err) {
       console.error("SignIn error:", err);
       return {

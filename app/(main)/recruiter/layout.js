@@ -14,11 +14,19 @@ function DashboardLayout({ children }) {
 
   useEffect(() => {
     const checkAuth = async () => {
+      // Fast path: Check cached session immediately (<1ms)
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (sessionData?.session?.user) {
+        setLoading(false);
+        return;
+      }
+
+      // Fallback: Verify with server if no local session found
       const { data, error } = await supabase.auth.getUser();
 
       if (error || !data?.user) {
         toast.error('Please log in to continue.');
-        router.push('/login'); // ✅ Redirects to /login now
+        router.push('/login');
         return;
       }
 

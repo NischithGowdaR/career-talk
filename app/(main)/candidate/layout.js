@@ -14,18 +14,25 @@ function DashboardLayout({ children }) {
 
   useEffect(() => {
     const checkAuth = async () => {
+      const isDemo = typeof window !== 'undefined' && localStorage.getItem('demo_candidate_active') === 'true';
+      if (isDemo) {
+        setLoading(false);
+        return;
+      }
+
+      // Fast path: Check cached session immediately (<1ms)
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (sessionData?.session?.user) {
+        setLoading(false);
+        return;
+      }
+
+      // Fallback: Verify with server if no local session found
       const { data, error } = await supabase.auth.getUser();
 
       if (error || !data?.user) {
-        // Allow Demo Candidate Mode if enabled
-        const isDemo = typeof window !== 'undefined' && localStorage.getItem('demo_candidate_active') === 'true';
-        if (isDemo) {
-          setLoading(false);
-          return;
-        }
-
         toast.error('Please log in to continue.');
-        router.replace('/login'); // Redirect to login if not authenticated
+        router.replace('/login');
         return;
       }
 

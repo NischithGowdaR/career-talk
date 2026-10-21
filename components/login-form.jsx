@@ -26,6 +26,7 @@ export function LoginForm(props) {
   useEffect(() => {
     router.prefetch("/register");
     router.prefetch("/candidate/dashboard");
+    router.prefetch("/recruiter/dashboard");
   }, [router]);
 
   const handleStartRegistering = () => {
@@ -52,7 +53,7 @@ export function LoginForm(props) {
     setLoading(true);
 
     try {
-      const { success, error } = await signInUser(email, password);
+      const { success, error, role } = await signInUser(email, password);
 
       if (!success) {
         setErrorMessage(error || "Invalid login credentials. Please check your email or create an account.");
@@ -61,7 +62,8 @@ export function LoginForm(props) {
         return;
       }
 
-      toast.success("Login successful! Redirecting...");
+      const target = role === "recruiter" ? "/recruiter/dashboard" : "/candidate/dashboard";
+      router.replace(target);
     } catch (err) {
       console.error("Unexpected error:", err);
       setErrorMessage("Unexpected error occurred. Please try again or use Demo Mode.");

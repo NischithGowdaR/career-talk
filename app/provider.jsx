@@ -14,9 +14,18 @@ function Provider({ children }) {
   }, []);
 
   const CreateOrFetchUser = async () => {
-    const { data: authData, error: authError } = await supabase.auth.getUser();
+    let currentUser = null;
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (sessionData?.session?.user) {
+      currentUser = sessionData.session.user;
+    } else {
+      const { data: authData } = await supabase.auth.getUser();
+      if (authData?.user) {
+        currentUser = authData.user;
+      }
+    }
 
-    if (authError || !authData?.user) {
+    if (!currentUser) {
       if (typeof window !== "undefined" && localStorage.getItem("demo_candidate_active") === "true") {
         setUser({
           name: "Alex Rivera",
@@ -27,12 +36,11 @@ function Provider({ children }) {
           banned: false,
         });
       } else {
-        console.warn("No authenticated user found:", authError?.message);
+        console.warn("No authenticated user found");
       }
       return;
     }
 
-    const currentUser = authData.user;
     const cleanEmail = currentUser.email?.toLowerCase();
     if (!cleanEmail) return;
 
