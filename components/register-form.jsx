@@ -99,47 +99,47 @@ export function RegisterForm() {
         </div>
       )}
 
-      <form onSubmit={handleSignUp} className="space-y-4">
+      <form onSubmit={handleSignUp} suppressHydrationWarning className="space-y-4">
         <div className="space-y-1.5">
-          <Label htmlFor="name" className="text-xs font-bold text-slate-300">
+          <Label htmlFor="name" className="text-xs font-bold text-black">
             Full Name
           </Label>
           <div className="relative">
-            <User2Icon className="absolute left-3.5 top-1/2 -translate-y-1/2 text-cyan-400/60 w-4 h-4" />
+            <User2Icon className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
               id="name"
               type="text"
               placeholder="Sarah Jenkins"
               required
               ref={nameRef}
-              className="pl-10 h-12 bg-white/5 border border-white/15 focus:border-cyan-400/60 rounded-xl text-white placeholder:text-slate-500 text-sm focus-visible:ring-1 focus-visible:ring-cyan-400"
+              className="pl-10 h-12 bg-white border border-gray-300 focus:border-black rounded-xl text-black placeholder:text-gray-400 text-sm focus-visible:ring-1 focus-visible:ring-black"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="email" className="text-xs font-bold text-slate-300">
+          <Label htmlFor="email" className="text-xs font-bold text-black">
             Email Address
           </Label>
           <div className="relative">
-            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/60 w-4 h-4" />
+            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
               id="email"
               type="email"
               placeholder="candidate@example.com"
               required
               ref={emailRef}
-              className="pl-10 h-12 bg-white/5 border border-white/15 focus:border-purple-400/60 rounded-xl text-white placeholder:text-slate-500 text-sm focus-visible:ring-1 focus-visible:ring-purple-400"
+              className="pl-10 h-12 bg-white border border-gray-300 focus:border-black rounded-xl text-black placeholder:text-gray-400 text-sm focus-visible:ring-1 focus-visible:ring-black"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="password" className="text-xs font-bold text-slate-300">
+          <Label htmlFor="password" className="text-xs font-bold text-black">
             Password
           </Label>
           <div className="relative">
-            <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400/60 w-4 h-4" />
+            <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
               id="password"
               type="password"
@@ -147,22 +147,22 @@ export function RegisterForm() {
               autoComplete="new-password"
               required
               ref={passwordRef}
-              className="pl-10 h-12 bg-white/5 border border-white/15 focus:border-amber-400/60 rounded-xl text-white placeholder:text-slate-500 text-sm focus-visible:ring-1 focus-visible:ring-amber-400"
+              className="pl-10 h-12 bg-white border border-gray-300 focus:border-black rounded-xl text-black placeholder:text-gray-400 text-sm focus-visible:ring-1 focus-visible:ring-black"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="role" className="text-xs font-bold text-slate-300">
+          <Label htmlFor="role" className="text-xs font-bold text-black">
             I am a
           </Label>
           <Select onValueChange={setRole} value={role}>
-            <SelectTrigger className="w-full h-12 bg-white/5 border border-white/15 focus:border-emerald-400/60 rounded-xl text-white text-sm px-4">
+            <SelectTrigger className="w-full h-12 bg-white border border-gray-300 focus:border-black rounded-xl text-black text-sm px-4">
               <SelectValue placeholder="Select account type" />
             </SelectTrigger>
-            <SelectContent className="rounded-xl bg-[#0F1426] border border-white/15 text-white">
-              <SelectItem value="candidate" className="cursor-pointer py-2.5 hover:bg-white/10">Candidate / Engineer (Practice Mocks)</SelectItem>
-              <SelectItem value="recruiter" className="cursor-pointer py-2.5 hover:bg-white/10">Recruiter / Employer</SelectItem>
+            <SelectContent className="rounded-xl bg-white border border-gray-200 text-black shadow-lg">
+              <SelectItem value="candidate" className="cursor-pointer py-2.5 hover:bg-gray-100 text-black">Candidate / Engineer (Practice Mocks)</SelectItem>
+              <SelectItem value="recruiter" className="cursor-pointer py-2.5 hover:bg-gray-100 text-black">Recruiter / Employer</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -170,7 +170,7 @@ export function RegisterForm() {
         <Button
           type="submit"
           disabled={loading}
-          className="w-full h-12 rounded-xl bg-gradient-to-r from-[#8B5CF6] via-[#EC4899] to-[#00F0FF] hover:opacity-95 text-white font-black text-sm shadow-[0_0_25px_rgba(139,92,246,0.35)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-2"
+          className="w-full h-12 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-sm shadow-md active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-2"
         >
           {loading ? (
             <span className="flex items-center gap-2">
@@ -188,9 +188,9 @@ export function RegisterForm() {
 
       <div className="relative flex items-center justify-center my-3">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t border-white/10" />
+          <span className="w-full border-t border-gray-200" />
         </div>
-        <span className="relative z-10 bg-[#0E1428] px-3 text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
+        <span className="relative z-10 bg-white px-3 text-[11px] font-mono font-bold text-gray-500 uppercase tracking-widest">
           Or
         </span>
       </div>
@@ -198,7 +198,7 @@ export function RegisterForm() {
       <Button
         type="button"
         variant="outline"
-        className="w-full h-11 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-2.5"
+        className="w-full h-11 rounded-xl bg-white hover:bg-gray-50 border border-gray-300 text-black text-xs font-bold transition-all flex items-center justify-center gap-2.5 shadow-sm"
         onClick={SignUpWithGoogle}
       >
         <svg width="18" height="18" viewBox="0 0 48 48">
@@ -210,9 +210,9 @@ export function RegisterForm() {
         <span>Register with Google</span>
       </Button>
 
-      <div className="text-center text-xs text-slate-300 pt-1">
+      <div className="text-center text-xs text-gray-600 pt-1">
         Already have an account?{" "}
-        <Link href="/login" prefetch={true} className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-4">
+        <Link href="/login" prefetch={true} className="text-blue-600 hover:text-blue-700 font-bold underline underline-offset-4">
           Sign in
         </Link>
       </div>

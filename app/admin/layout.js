@@ -50,7 +50,7 @@ export default function AdminLayout({ children }) {
   };
 
   return (
-    <div className="relative min-h-screen bg-black">
+    <div className="relative min-h-screen bg-white text-black">
       <AnimatePresence>
         {!authorized && (
           <motion.div 

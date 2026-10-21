@@ -92,34 +92,37 @@ export function AppSidebar() {
         }
       `}</style>
 
-      <Sidebar>
-        <SidebarHeader className="flex items-center justify-center py-4 px-4">
-          <Image src="/logo.png" alt="Logo" width={120} height={120} className="object-contain" />
+      <Sidebar className="border-r border-gray-200 bg-white">
+        <SidebarHeader className="flex items-center justify-center py-6 px-4 bg-white">
+          <Image src="/logo.png" alt="Logo" width={110} height={110} className="object-contain" />
         </SidebarHeader>
 
-        <div className="px-4">
-          <Button className="w-full" onClick={() => router.push("/recruiter/dashboard/create-interview")}>
-            <Plus className="mr-2" /> Create New Interview
+        <div className="px-4 pb-2 bg-white">
+          <Button className="w-full bg-black hover:bg-black/90 text-white font-bold h-11 rounded-xl shadow-sm transition-all" onClick={() => router.push("/recruiter/dashboard/create-interview")}>
+            <Plus className="mr-2 w-4 h-4" /> Create New Interview
           </Button>
         </div>
 
-        <SidebarContent>
+        <SidebarContent className="bg-white px-3">
           <SidebarGroup>
-            <SidebarMenu>
+            <SidebarMenu className="gap-1.5">
               {SideBarOptions.map((option, i) => {
                 const isBilling = option.name.toLowerCase().includes("billing") || option.path.includes("billing") || option.name.toLowerCase().includes("credit");
+                const isActive = path === option.path;
                 
                 return (
                   <SidebarMenuItem key={i} className="relative overflow-hidden group">
                     <SidebarMenuButton asChild>
                       <Link
                         href={option.path}
-                        className={`flex items-center gap-3 p-3 rounded-md transition-all ${
-                          path === option.path ? "bg-blue-50 text-primary" : "hover:bg-gray-100"
+                        className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all ${
+                          isActive 
+                            ? "bg-black text-white font-bold shadow-sm" 
+                            : "text-black hover:bg-gray-100 font-semibold"
                         }`}
                       >
-                        <option.icon className="w-5 h-5" />
-                        <span className="font-medium">{option.name}</span>
+                        <option.icon className={`w-5 h-5 ${isActive ? "text-white" : "text-black"}`} />
+                        <span className="text-sm">{option.name}</span>
 
                         {/* 🎁 NEW YEAR 2026 OFFER MARQUEE FOR BILLING */}
                         {isBilling && (
@@ -140,9 +143,9 @@ export function AppSidebar() {
           </SidebarGroup>
         </SidebarContent>
 
-        <SidebarFooter className="p-3">
-          <Button className="w-full" onClick={async () => { await signOut(); router.push("/login"); }}>
-            <LogOutIcon className="mr-2" /> Logout
+        <SidebarFooter className="p-4 bg-white border-t border-gray-100">
+          <Button variant="outline" className="w-full h-11 rounded-xl border-gray-200 text-black hover:bg-red-50 hover:text-red-600 hover:border-red-200 font-bold transition-all" onClick={async () => { await signOut(); router.push("/login"); }}>
+            <LogOutIcon className="mr-2 w-4 h-4" /> Logout
           </Button>
         </SidebarFooter>
       </Sidebar>

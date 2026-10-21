@@ -67,22 +67,22 @@ function AdminDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F5F5F7] text-[#1D1D1F] p-6 md:p-12 font-sans selection:bg-blue-100">
+    <div className="min-h-screen bg-white text-black p-6 md:p-12 font-sans selection:bg-gray-200">
       {/* Apple-Style Header */}
       <header className="max-w-7xl mx-auto mb-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-1">
-            <h1 className="text-4xl font-bold tracking-tight text-[#1D1D1F]">Dashboard</h1>
-            <p className="text-lg font-medium text-[#86868B]">Platform activity at a glance.</p>
+            <h1 className="text-4xl font-black tracking-tight text-black">Dashboard</h1>
+            <p className="text-lg font-medium text-gray-500">Platform activity at a glance.</p>
           </div>
           <div className="flex gap-3">
             <Link href="/admin/users">
-              <Button variant="outline" className="rounded-full bg-white/80 border-[#D2D2D7] hover:bg-white text-[#0066CC] px-6 h-10 shadow-sm transition-all active:scale-95 font-medium">
+              <Button variant="outline" className="rounded-full bg-white border-gray-300 hover:bg-gray-50 text-black px-6 h-10 shadow-sm transition-all active:scale-95 font-semibold">
                 Manage Users
               </Button>
             </Link>
             <Link href="/admin/interviews">
-              <Button className="rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white px-6 h-10 shadow-sm transition-all active:scale-95 font-medium">
+              <Button className="rounded-full bg-black hover:bg-gray-800 text-white px-6 h-10 shadow-sm transition-all active:scale-95 font-semibold">
                 View Interviews
               </Button>
             </Link>
@@ -93,9 +93,9 @@ function AdminDashboard() {
       {/* Stats Grid */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         {statCards.map((stat, index) => (
-          <Card key={index} className="bg-white/70 backdrop-blur-xl border border-white/40 shadow-sm rounded-[24px] hover:shadow-md transition-all duration-500 overflow-hidden">
+          <Card key={index} className="bg-white border border-gray-200 shadow-sm rounded-2xl hover:shadow-md transition-all duration-300 overflow-hidden">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-[13px] uppercase tracking-wider font-semibold text-[#86868B]">
+              <CardTitle className="text-[13px] uppercase tracking-wider font-semibold text-gray-500">
                 {stat.title}
               </CardTitle>
               <stat.icon className={`w-5 h-5 ${stat.color} opacity-80`} />

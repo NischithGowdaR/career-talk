@@ -26,7 +26,7 @@ export function AppSidebar() {
   const { signOut } = UserAuth();
 
   return (
-    <Sidebar className="border-r border-[#D2D2D7]/50 bg-[#F5F5F7]/80 backdrop-blur-xl">
+    <Sidebar className="border-r border-gray-200 bg-white">
       {/* Apple Style Header */}
       <SidebarHeader className="flex items-center justify-center py-10 px-6">
         <motion.div 
@@ -44,7 +44,7 @@ export function AppSidebar() {
         </motion.div>
       </SidebarHeader>
 
-      <SidebarContent className="px-4">
+      <SidebarContent className="px-4 bg-white">
         <SidebarGroup>
           <SidebarMenu className="gap-1.5">
             {SideBarCondidate.map((option, index) => {
@@ -53,24 +53,24 @@ export function AppSidebar() {
                 <SidebarMenuItem key={index}>
                   <SidebarMenuButton
                     asChild
-                    className={`relative h-11 rounded-[10px] transition-all duration-200 group ${
+                    className={`relative h-11 rounded-xl transition-all duration-200 group ${
                       isActive 
-                      ? "bg-[#0071E3] text-white shadow-sm" 
-                      : "text-[#1D1D1F] hover:bg-[#E8E8ED]"
+                      ? "bg-black text-white shadow-sm" 
+                      : "text-black hover:bg-gray-100"
                     }`}
                   >
                     <Link href={option.path} className="flex items-center px-3 gap-3">
-                      <div className={`p-1 rounded-md transition-colors ${isActive ? "text-white" : "text-[#0071E3]"}`}>
+                      <div className={`p-1 rounded-md transition-colors ${isActive ? "text-white" : "text-black"}`}>
                         <option.icon className="w-[18px] h-[18px]" strokeWidth={isActive ? 2.5 : 2} />
                       </div>
                       
-                      <span className={`text-[14px] flex-grow font-medium tracking-tight ${isActive ? "font-semibold" : "font-medium text-[#1D1D1F]"}`}>
+                      <span className={`text-[14px] flex-grow tracking-tight ${isActive ? "font-bold text-white" : "font-semibold text-black"}`}>
                         {option.name}
                       </span>
 
                       {isActive && (
                         <motion.div initial={{ x: -5, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
-                            <ChevronRight className="w-4 h-4 opacity-70" />
+                            <ChevronRight className="w-4 h-4 text-white opacity-80" />
                         </motion.div>
                       )}
                     </Link>

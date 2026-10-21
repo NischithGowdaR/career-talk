@@ -8,10 +8,10 @@ export default function Maintenance() {
   const [isGameOpen, setIsGameOpen] = useState(false);
 
   return (
-    <div className="h-screen w-full bg-[#fbfbfd] flex flex-col lg:flex-row items-center justify-center overflow-hidden font-sans relative">
+    <div className="h-screen w-full bg-white flex flex-col lg:flex-row items-center justify-center overflow-hidden font-sans relative">
       
       {/* 🎥 Video Section */}
-      <div className="w-full lg:w-1/2 h-[35vh] lg:h-full flex items-center justify-center bg-[#f5f5f7] lg:bg-transparent">
+      <div className="w-full lg:w-1/2 h-[35vh] lg:h-full flex items-center justify-center bg-gray-50 lg:bg-transparent">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -36,11 +36,11 @@ export default function Maintenance() {
             <span className="text-[11px] font-bold text-blue-600 uppercase tracking-widest">Removing Bugs</span>
           </div>
 
-          <h1 className="text-4xl lg:text-6xl font-bold tracking-tight text-[#1d1d1f] mb-4 leading-tight">
+          <h1 className="text-4xl lg:text-6xl font-black tracking-tight text-black mb-4 leading-tight">
             Site Under <br /> <span className="text-blue-600 underline decoration-blue-100 underline-offset-8">Maintenance</span>
           </h1>
 
-          <p className="text-lg text-[#636366] mb-8 leading-relaxed font-medium">
+          <p className="text-lg text-gray-600 mb-8 leading-relaxed font-medium">
             We are removing errors and bugs. Please coordinate while we polish the experience.
           </p>
 

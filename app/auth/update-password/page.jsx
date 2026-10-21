@@ -79,13 +79,13 @@ export default function UpdatePasswordPage() {
 
   if (!ready)
     return (
-      <div className="flex items-center justify-center min-h-screen text-center text-gray-500 dark:text-gray-300">
+      <div className="flex items-center justify-center min-h-screen text-center text-gray-700 bg-white">
         Waiting for recovery session...
       </div>
     );
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white text-black px-4">
       <Image
         src="/logo.png"
         alt="App Logo"
@@ -94,12 +94,12 @@ export default function UpdatePasswordPage() {
         priority
         className="mb-6 object-contain"
       />
-      <div className="w-full max-w-md bg-white dark:bg-gray-900 shadow-2xl rounded-2xl p-8 border border-gray-100 dark:border-gray-800">
+      <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8 border border-gray-200">
         <div className="flex flex-col items-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-black">
             Set a New Password
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-1">
+          <p className="text-sm text-gray-600 text-center mt-1">
             Enter a new password to secure your account.
           </p>
         </div>
@@ -110,24 +110,24 @@ export default function UpdatePasswordPage() {
             placeholder="Enter new password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full text-base py-2"
+            className="w-full text-base py-2 bg-white border-gray-300 text-black placeholder:text-gray-400 focus:border-black"
             required
           />
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-black text-white hover:bg-gray-800 transition-all duration-300"
+            className="w-full bg-black text-white hover:bg-gray-800 transition-all duration-300 font-bold"
           >
             {loading ? "Updating..." : "Update Password"}
           </Button>
         </form>
 
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-gray-600">
             Back to{" "}
             <a
-              href="/"
-              className="text-blue-600 dark:text-blue-400 hover:underline"
+              href="/login"
+              className="text-blue-600 hover:underline font-semibold"
             >
               Login
             </a>

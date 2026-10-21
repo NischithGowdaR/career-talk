@@ -113,40 +113,40 @@ export function LoginForm(props) {
         </div>
       )}
 
-      <form className={cn("space-y-4", className)} {...rest} onSubmit={handleSubmit}>
+      <form className={cn("space-y-4", className)} suppressHydrationWarning {...rest} onSubmit={handleSubmit}>
         <div className="space-y-1.5">
-          <Label htmlFor="email" className="text-xs font-bold text-slate-300">
+          <Label htmlFor="email" className="text-xs font-bold text-black">
             Email Address
           </Label>
           <div className="relative">
-            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-cyan-400/60 w-4 h-4" />
+            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
               id="email"
               type="email"
               placeholder="candidate@example.com"
               required
               ref={emailRef}
-              className="pl-10 h-12 bg-white/5 border border-white/15 focus:border-cyan-400/60 rounded-xl text-white placeholder:text-slate-500 text-sm focus-visible:ring-1 focus-visible:ring-cyan-400"
+              className="pl-10 h-12 bg-white border border-gray-300 focus:border-black rounded-xl text-black placeholder:text-gray-400 text-sm focus-visible:ring-1 focus-visible:ring-black"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <Label htmlFor="password" className="text-xs font-bold text-slate-300">
+            <Label htmlFor="password" className="text-xs font-bold text-black">
               Password
             </Label>
             <Link
               href="/forgot-password"
               prefetch={true}
-              className="text-xs text-cyan-400 hover:text-cyan-300 underline-offset-4 hover:underline"
+              className="text-xs text-blue-600 hover:text-blue-700 underline-offset-4 hover:underline"
             >
               Forgot password?
             </Link>
           </div>
 
           <div className="relative">
-            <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/60 w-4 h-4" />
+            <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
               id="password"
               type="password"
@@ -154,7 +154,7 @@ export function LoginForm(props) {
               autoComplete="current-password"
               required
               ref={passwordRef}
-              className="pl-10 h-12 bg-white/5 border border-white/15 focus:border-purple-400/60 rounded-xl text-white placeholder:text-slate-500 text-sm focus-visible:ring-1 focus-visible:ring-purple-400"
+              className="pl-10 h-12 bg-white border border-gray-300 focus:border-black rounded-xl text-black placeholder:text-gray-400 text-sm focus-visible:ring-1 focus-visible:ring-black"
             />
           </div>
         </div>
@@ -162,7 +162,7 @@ export function LoginForm(props) {
         <Button
           type="submit"
           disabled={loading}
-          className="w-full h-12 rounded-xl bg-gradient-to-r from-[#00F0FF] via-[#6366F1] to-[#8B5CF6] hover:opacity-95 text-white font-black text-sm shadow-[0_0_25px_rgba(0,240,255,0.35)] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+          className="w-full h-12 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-sm shadow-md active:scale-[0.98] transition-all flex items-center justify-center gap-2"
         >
           {loading ? (
             <span className="flex items-center gap-2">
@@ -183,17 +183,17 @@ export function LoginForm(props) {
         type="button"
         variant="outline"
         onClick={handleDemoAccess}
-        className="w-full h-11 rounded-xl bg-gradient-to-r from-emerald-500/15 to-cyan-500/15 border border-emerald-400/40 hover:border-emerald-400 text-emerald-300 hover:text-emerald-200 font-bold text-xs shadow-sm transition-all flex items-center justify-center gap-2"
+        className="w-full h-11 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 font-bold text-xs shadow-sm transition-all flex items-center justify-center gap-2"
       >
-        <Sparkles size={14} className="text-emerald-400" />
+        <Sparkles size={14} className="text-emerald-600" />
         <span>⚡ Try Instant Candidate Demo</span>
       </Button>
 
       <div className="relative flex items-center justify-center my-4">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t border-white/10" />
+          <span className="w-full border-t border-gray-200" />
         </div>
-        <span className="relative z-10 bg-[#0E1428] px-3 text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
+        <span className="relative z-10 bg-white px-3 text-[11px] font-mono font-bold text-gray-500 uppercase tracking-widest">
           Or continue with
         </span>
       </div>
@@ -201,7 +201,7 @@ export function LoginForm(props) {
       <Button
         type="button"
         variant="outline"
-        className="w-full h-11 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-2.5"
+        className="w-full h-11 rounded-xl bg-white hover:bg-gray-50 border border-gray-300 text-black text-xs font-bold transition-all flex items-center justify-center gap-2.5 shadow-sm"
         onClick={SignInWithGoogle}
       >
         <svg width="18" height="18" viewBox="0 0 48 48">
@@ -213,12 +213,12 @@ export function LoginForm(props) {
         <span>Sign in with Google</span>
       </Button>
 
-      <div className="text-center text-xs text-slate-300 pt-2">
+      <div className="text-center text-xs text-gray-600 pt-2">
         Don’t have an account?{" "}
         <Link
           href="/register"
           prefetch={true}
-          className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-4 cursor-pointer"
+          className="text-blue-600 hover:text-blue-700 font-bold underline underline-offset-4 cursor-pointer"
         >
           Create Free Account
         </Link>

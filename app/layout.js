@@ -17,7 +17,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Razorpay (loaded lazily so it never blocks page hydration or route transitions) */}
         <Script
@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         {/* Cloudflare Turnstile is managed by Supabase server-side — no client script */}
       </head>
 
-      <body className={`${inter.variable} antialiased`}>
+      <body suppressHydrationWarning className={`${inter.variable} antialiased bg-white text-black`}>
         <Provider>
           <AuthContextProvider>
             {children}
