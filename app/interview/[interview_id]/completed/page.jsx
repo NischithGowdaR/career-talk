@@ -1,12 +1,29 @@
 'use client';
 import React, { useEffect } from 'react';
 import Image from 'next/image';
-import { Shield, Clock, Mail, ChevronRight, Check } from 'lucide-react';
+import { Shield, Clock, Mail, ChevronRight, Check, LayoutDashboard, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 const InterviewCompleted = () => {
-  
+  const router = useRouter();
+
+  // Intercept browser back button so candidate is directed to dashboard instead of retaking
+  useEffect(() => {
+    window.history.pushState(null, '', window.location.href);
+
+    const handlePopState = () => {
+      router.replace('/candidate/dashboard');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [router]);
+
   useEffect(() => {
     // Function for continuous premium confetti bursts
     const fireConfetti = () => {
@@ -109,13 +126,24 @@ const InterviewCompleted = () => {
         </div>
 
         {/* Action / Footer Box */}
-        <div className="bg-[#F5F5F7] rounded-[28px] p-7 border border-[#D2D2D7]/40">
-          <p className="text-[15px] text-[#1D1D1F] font-semibold mb-1">
-            Task Successfully Completed
-          </p>
-          <p className="text-[14px] text-[#86868B]">
-            You may safely exit the portal now.
-          </p>
+        <div className="bg-[#F5F5F7] rounded-[28px] p-7 border border-[#D2D2D7]/40 space-y-4">
+          <div>
+            <p className="text-[15px] text-[#1D1D1F] font-semibold mb-1">
+              Task Successfully Completed
+            </p>
+            <p className="text-[14px] text-[#86868B]">
+              Your responses have been recorded and sent for evaluation.
+            </p>
+          </div>
+
+          <Button
+            onClick={() => router.replace('/candidate/dashboard')}
+            className="w-full h-14 rounded-2xl bg-black hover:bg-gray-800 text-white font-bold text-[15px] shadow-lg shadow-black/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <LayoutDashboard className="w-5 h-5" />
+            <span>Go to Candidate Dashboard</span>
+            <ArrowRight className="w-4 h-4 ml-1" />
+          </Button>
         </div>
       </motion.div>
     </div>

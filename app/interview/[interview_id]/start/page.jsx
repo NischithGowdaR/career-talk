@@ -131,6 +131,34 @@ export default function StartInterview() {
   }, []);
 
   /* -------------------------------------------------------------------------- */
+  /* Prevent duplicate attempts                                                 */
+  /* -------------------------------------------------------------------------- */
+  useEffect(() => {
+    const verifyNotCompleted = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        const email = session?.user?.email || interviewInfo?.userEmail;
+        if (!email || !interview_id) return;
+
+        const { data: existing } = await supabase
+          .from("interview_results")
+          .select("id")
+          .eq("interview_id", interview_id)
+          .eq("email", email)
+          .limit(1);
+
+        if (existing && existing.length > 0) {
+          toast.error("You have already completed this interview.");
+          router.replace("/candidate/dashboard");
+        }
+      } catch (err) {
+        console.error("Error verifying completion in start room:", err);
+      }
+    };
+    verifyNotCompleted();
+  }, [interview_id, interviewInfo, router]);
+
+  /* -------------------------------------------------------------------------- */
   /* Start call ONCE                                                            */
   /* -------------------------------------------------------------------------- */
   useEffect(() => {
@@ -146,6 +174,28 @@ export default function StartInterview() {
   /* -------------------------------------------------------------------------- */
   const startCall = async () => {
     if (!vapi || vapi?.call?.status === "active") return;
+
+    // Safety check against duplicate attempts
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const email = session?.user?.email || interviewInfo?.userEmail;
+      if (email && interview_id) {
+        const { data: existing } = await supabase
+          .from("interview_results")
+          .select("id")
+          .eq("interview_id", interview_id)
+          .eq("email", email)
+          .limit(1);
+
+        if (existing && existing.length > 0) {
+          toast.error("You have already completed this interview.");
+          router.replace("/candidate/dashboard");
+          return;
+        }
+      }
+    } catch (err) {
+      console.error("Duplicate check error:", err);
+    }
 
     const jobPosition = interviewInfo.jobPosition;
     const questionList =

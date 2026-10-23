@@ -29,6 +29,7 @@ function Interview() {
   const [userEmail, setUserEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [accessDenied, setAccessDenied] = useState(false);
+  const [alreadyCompleted, setAlreadyCompleted] = useState(false);
   
   // Custom Login Redirect States
   const [showAuthWarning, setShowAuthWarning] = useState(false);
@@ -36,6 +37,37 @@ function Interview() {
   // Security States
   const [isFullScreen, setIsFullScreen] = useState(DEBUG_MODE);
   const [deviceAuthorized, setDeviceAuthorized] = useState(true);
+
+  /* -------------------------------------------------------------------------- */
+  /* CHECK IF CANDIDATE HAS ALREADY COMPLETED THIS INTERVIEW                    */
+  /* -------------------------------------------------------------------------- */
+  useEffect(() => {
+    const checkCompletion = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        const email = session?.user?.email || user?.email;
+        if (!email || !interview_id) return;
+
+        const { data: results } = await supabase
+          .from("interview_results")
+          .select("id, completed_at")
+          .eq("interview_id", interview_id)
+          .eq("email", email)
+          .limit(1);
+
+        if (results && results.length > 0) {
+          setAlreadyCompleted(true);
+          toast.info("You have already completed this interview. Redirecting to dashboard...");
+          setTimeout(() => {
+            router.replace("/candidate/dashboard");
+          }, 2000);
+        }
+      } catch (err) {
+        console.error("Error checking completion:", err);
+      }
+    };
+    checkCompletion();
+  }, [user, interview_id, router]);
 
   /* -------------------------------------------------------------------------- */
   /* SECURITY: DEVICE, FULLSCREEN & RIGHT CLICK ENFORCEMENT                    */
@@ -149,6 +181,12 @@ function Interview() {
   };
 
   const onJoinInterview = async () => {
+    if (alreadyCompleted) {
+      toast.error("You have already completed this interview.");
+      router.replace("/candidate/dashboard");
+      return;
+    }
+
     if (!deviceAuthorized && !DEBUG_MODE) {
       toast.error("Please use a Laptop or Desktop.");
       return;
@@ -160,6 +198,25 @@ function Interview() {
     if (!isFullScreen && !DEBUG_MODE) {
       toast.error("Must be in fullscreen mode to start.");
       return;
+    }
+
+    // Live safety check right before starting session
+    const { data: { session } } = await supabase.auth.getSession();
+    const email = session?.user?.email || userEmail;
+    if (email) {
+      const { data: results } = await supabase
+        .from("interview_results")
+        .select("id")
+        .eq("interview_id", interview_id)
+        .eq("email", email)
+        .limit(1);
+
+      if (results && results.length > 0) {
+        setAlreadyCompleted(true);
+        toast.error("You have already completed this interview. Multiple attempts are not permitted.");
+        router.replace("/candidate/dashboard");
+        return;
+      }
     }
 
     const info = {
@@ -230,7 +287,7 @@ function Interview() {
 
       {/* 3. FULLSCREEN OVERLAY */}
       <AnimatePresence>
-        {!DEBUG_MODE && deviceAuthorized && !isFullScreen && !showAuthWarning && (
+        {!DEBUG_MODE && deviceAuthorized && !isFullScreen && !showAuthWarning && !alreadyCompleted && (
           <motion.div 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             className="fixed inset-0 z-[500] bg-white/80 backdrop-blur-xl flex flex-col items-center justify-center p-6 text-center"
@@ -244,11 +301,55 @@ function Interview() {
         )}
       </AnimatePresence>
 
+      {/* 4. ALREADY COMPLETED SCREEN */}
+      <AnimatePresence>
+        {alreadyCompleted && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            className="fixed inset-0 z-[2000] bg-white flex flex-col items-center justify-center p-6 text-center"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }} 
+              animate={{ scale: 1, y: 0 }}
+              className="max-w-md w-full bg-white p-8 sm:p-10 rounded-[36px] shadow-2xl border border-gray-100 flex flex-col items-center"
+            >
+              <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mb-6 shadow-sm">
+                <CheckCircle className="text-green-600 w-10 h-10" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Interview Already Completed</h2>
+              <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                You have already completed and submitted this interview assessment. Multiple attempts are not permitted.
+              </p>
+              
+              <Button 
+                onClick={() => router.replace("/candidate/dashboard")}
+                className="w-full h-13 rounded-2xl bg-black hover:bg-gray-800 text-white font-bold text-sm shadow-md transition-all mb-5 cursor-pointer flex items-center justify-center gap-2"
+              >
+                Go to Candidate Dashboard
+              </Button>
+
+              <div className="w-full flex flex-col items-center gap-2">
+                <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ width: "0%" }} 
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 2, ease: "linear" }}
+                    className="bg-green-600 h-full"
+                  />
+                </div>
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Redirecting to dashboard...</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* MAIN UI CONTENT */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className={`max-w-4xl w-full z-10 ${showAuthWarning ? 'blur-md' : ''}`}
+        className={`max-w-4xl w-full z-10 ${showAuthWarning || alreadyCompleted ? 'blur-md pointer-events-none' : ''}`}
       >
         <div className="flex flex-col items-center mb-10 text-center">
           <div className="w-20 h-20 bg-white rounded-3xl shadow-sm flex items-center justify-center mb-4 border border-gray-200">

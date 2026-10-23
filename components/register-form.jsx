@@ -157,7 +157,7 @@ export function RegisterForm() {
             I am a
           </Label>
           <Select onValueChange={setRole} value={role}>
-            <SelectTrigger className="w-full h-12 bg-white border border-gray-300 focus:border-black rounded-xl text-black text-sm px-4">
+            <SelectTrigger id="role" className="w-full h-12 bg-white border border-gray-300 focus:border-black rounded-xl text-black text-sm px-4">
               <SelectValue placeholder="Select account type" />
             </SelectTrigger>
             <SelectContent className="rounded-xl bg-white border border-gray-200 text-black shadow-lg">

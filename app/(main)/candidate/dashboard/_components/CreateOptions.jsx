@@ -64,18 +64,40 @@ function CreateOptions() {
       .eq('interview_id', cleanUUID)
       .single()
 
-    setLoading(false)
-
     if (error || !data) {
+      setLoading(false)
       toast.error('Invalid interview link or code. Please check and try again.')
       generateCaptcha(); 
       return
     }
 
+    // Check if candidate already completed this interview
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const email = session?.user?.email;
+      if (email) {
+        const { data: existing } = await supabase
+          .from('interview_results')
+          .select('id')
+          .eq('interview_id', cleanUUID)
+          .eq('email', email)
+          .limit(1);
+
+        if (existing && existing.length > 0) {
+          setLoading(false);
+          toast.warning('You have already completed this interview. Multiple attempts are not permitted.');
+          generateCaptcha();
+          return;
+        }
+      }
+    } catch (err) {
+      console.error('Error checking previous completion:', err);
+    }
+
+    setLoading(false)
     toast.success('Interview verified. Redirecting...')
 
     // 3. Construct the local route
-    // This will redirect to /interview/[id] inside your application
     const redirectUrl = `/interview/${cleanUUID}`;
     router.push(redirectUrl);
   }
