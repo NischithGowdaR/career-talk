@@ -12,7 +12,7 @@
 
 **An intelligent, low-latency voice-powered mock interview ecosystem designed to automate candidate screening, conduct realistic technical/behavioral drills, and generate instant rubric-based evaluations.**
 
-[Explore Live Demo](https://career-talk.vercel.app) • [Architecture](SYSTEM_ARCHITECTURE.md) • [Report Bug](https://github.com/NischithGowdaR/career-talk/issues) • [Request Feature](https://github.com/NischithGowdaR/career-talk/issues)
+[Explore Live Demo](https://career-talk-one.vercel.app) • [Architecture](SYSTEM_ARCHITECTURE.md) • [Report Bug](https://github.com/NischithGowdaR/career-talk/issues) • [Request Feature](https://github.com/NischithGowdaR/career-talk/issues)
 
 </div>
 
