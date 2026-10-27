@@ -75,6 +75,10 @@ export function LoginForm(props) {
 
   const SignInWithGoogle = async () => {
     try {
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes("placeholder")) {
+        toast.error("Supabase URL is missing in Vercel! Add NEXT_PUBLIC_SUPABASE_URL in Vercel Settings and Redeploy.");
+        return;
+      }
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
