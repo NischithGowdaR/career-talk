@@ -20,7 +20,12 @@ import { toast } from "sonner";
 const InterviewLink = ({ interview_id, formData }) => {
   const router = useRouter();
 
-  const baseUrl = process.env.NEXT_PUBLIC_HOST_URL?.replace(/\/$/, "") || "";
+  let baseUrl = process.env.NEXT_PUBLIC_HOST_URL?.replace(/\/$/, "");
+  if (!baseUrl && typeof window !== "undefined") {
+    baseUrl = `${window.location.origin}/interview`;
+  } else if (baseUrl && !baseUrl.endsWith("/interview")) {
+    baseUrl = `${baseUrl}/interview`;
+  }
   const url = `${baseUrl}/${interview_id}`;
 
   const getInterviewURL = () => url;

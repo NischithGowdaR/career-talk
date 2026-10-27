@@ -23,7 +23,12 @@ function InterviewCard({ interview, viewDetail = false, onDelete }) {
   const [deleting, setDeleting] = useState(false);
 
   const getInterviewUrl = () => {
-    const baseUrl = process.env.NEXT_PUBLIC_HOST_URL?.replace(/\/$/, "");
+    let baseUrl = process.env.NEXT_PUBLIC_HOST_URL?.replace(/\/$/, "");
+    if (!baseUrl && typeof window !== "undefined") {
+      baseUrl = `${window.location.origin}/interview`;
+    } else if (baseUrl && !baseUrl.endsWith("/interview")) {
+      baseUrl = `${baseUrl}/interview`;
+    }
     return `${baseUrl}/${interview?.interview_id}`;
   };
 
